@@ -1,0 +1,42 @@
+import numpy as np
+epochs=2
+inputLayerSize,hiddenLayerSize,outputLayerSize=2,3,1
+L=0.1
+x=np.array([[0,0],[0,1],[1,0],[1,1]])
+y=np.array([[0],[1],[1],[0]])
+def Sigmoid(x): return 1/(1+np.exp(-x))
+def Sigmoid_(x):return x*(1-x)
+hidden_weights=np.random.uniform(size=(inputLayerSize,hiddenLayerSize))
+print('-----Hidden Layer Weights-----')
+print('xxxxxxxxxxxxx')
+output_weights=np.random.uniform(size=(hiddenLayerSize,outputLayerSize))
+print('-----output Layer Weights-----')
+print('xxxxxxxxxxxxx')
+for i in range(epochs):
+    Hidden_result=Sigmoid(np.dot(x,hidden_weights))
+    print('-----Hidden Layer Weights-----')
+    print('Hidden_result')
+    print('xxxxxxxxxxxxx')
+    output=np.dot(Hidden_result,output_weights)
+    print('-----output-----')
+    print(output)
+    print('xxxxxxxxxxxxx')
+    Error=y-output
+    print('-----Error-----')
+    print(Error)
+    print('xxxxxxxxxxxxx')
+    dz=Error*L
+    print('-----change in Error-----')
+    print(dz)
+    print('xxxxxxxxxxxxx')
+    output_weights+=Hidden_result.T.dot(dz)
+    print('-----change in output_weights-----') 
+    print(output_weights)
+    print('xxxxxxxxxxxxx')
+    dHidden_result=dz.dot(output_weights.T)*Sigmoid_(Hidden_result)
+    print('-----change in Hidden result-----')
+    print(dHidden_result)
+    print('xxxxxxxxxxxxx')
+    hidden_weights+=x.T.dot(dHidden_result)
+    print('-----change in Hidden weights-----')
+    print(hidden_weights)
